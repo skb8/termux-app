@@ -65,7 +65,7 @@ public class TermuxSessionsTabsAdapter extends RecyclerView.Adapter<TermuxSessio
         boolean isCurrentSession = mActivity.getCurrentSession() == session;
 
         if (isCurrentSession) {
-            holder.itemView.setBackgroundColor(shouldEnableDarkTheme ? 0xFF444444 : 0xFFDDDDDD);
+            holder.itemView.setBackgroundResource(shouldEnableDarkTheme ? R.drawable.tab_active_background_dark : R.drawable.tab_active_background_light);
         } else {
             android.util.TypedValue outValue = new android.util.TypedValue();
             mActivity.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
