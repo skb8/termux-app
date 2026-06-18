@@ -529,7 +529,11 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             mTermuxTerminalViewClient, mTermuxTerminalSessionActivityClient);
 
         final ViewPager terminalToolbarViewPager = getTerminalToolbarViewPager();
-        if (mPreferences.shouldShowTerminalToolbar()) terminalToolbarViewPager.setVisibility(View.VISIBLE);
+        final View bottomToolbar = findViewById(R.id.bottom_toolbar);
+        if (mPreferences.shouldShowTerminalToolbar()) {
+            if (bottomToolbar != null) bottomToolbar.setVisibility(View.VISIBLE);
+            else terminalToolbarViewPager.setVisibility(View.VISIBLE);
+        }
 
         ViewGroup.LayoutParams layoutParams = terminalToolbarViewPager.getLayoutParams();
         mTerminalToolbarDefaultHeight = layoutParams.height;
@@ -561,7 +565,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         final boolean showNow = mPreferences.toogleShowTerminalToolbar();
         Logger.showToast(this, (showNow ? getString(R.string.msg_enabling_terminal_toolbar) : getString(R.string.msg_disabling_terminal_toolbar)), true);
-        terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
+        final View bottomToolbar = findViewById(R.id.bottom_toolbar);
+        if (bottomToolbar != null) bottomToolbar.setVisibility(showNow ? View.VISIBLE : View.GONE);
+        else terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
         if (showNow && isTerminalToolbarTextInputViewSelected()) {
             // Focus the text input view if just revealed.
             findViewById(R.id.terminal_toolbar_text_input).requestFocus();
